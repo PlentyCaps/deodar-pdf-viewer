@@ -4,6 +4,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models/pdf_document.dart';
 import '../theme/deodar_theme.dart';
+import '../widgets/ai_panel.dart';
 
 class PdfViewerScreen extends StatefulWidget {
   final PdfDocument document;
@@ -98,6 +99,18 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
     await Share.shareXFiles(
       [XFile(widget.document.path)],
       subject: widget.document.name,
+    );
+  }
+
+  void _openAiPanel() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.55,
+        child: const AiPanel(),
+      ),
     );
   }
 
@@ -228,6 +241,12 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
                             ),
                           ),
                         ),
+                      IconButton(
+                        icon: const Icon(Icons.auto_awesome,
+                            color: DeodarColors.greenLight, size: 20),
+                        onPressed: _openAiPanel,
+                        tooltip: 'AI',
+                      ),
                       IconButton(
                         icon: const Icon(Icons.share_outlined,
                             color: DeodarColors.white, size: 20),
