@@ -53,7 +53,7 @@ class _AiPanelState extends State<AiPanel> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final reply = (data['response'] ?? data['message'] ?? data['content'] ?? '').toString();
+        final reply = (data['text'] ?? data['response'] ?? data['message'] ?? data['content'] ?? '').toString();
         setState(() {
           _messages.add(_AiMessage(text: reply.isNotEmpty ? reply : 'No response', isUser: false));
         });
