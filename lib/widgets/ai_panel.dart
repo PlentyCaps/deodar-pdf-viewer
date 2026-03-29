@@ -49,7 +49,7 @@ class _AiPanelState extends State<AiPanel> {
           'context': 'quick_response',
           'stream': false,
         }),
-      ).timeout(const Duration(seconds: 30));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
