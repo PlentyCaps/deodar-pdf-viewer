@@ -42,7 +42,7 @@ class _AiPanelState extends State<AiPanel> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8888/api/chat'),
+        Uri.parse('http://127.0.0.1:8888/api/chat'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'message': text,
