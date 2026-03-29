@@ -62,10 +62,15 @@ class _AiPanelState extends State<AiPanel> {
           _messages.add(_AiMessage(text: 'Error ${response.statusCode}', isUser: false));
         });
       }
-    } catch (_) {
+    } catch (e) {
+      final detail = e.toString().contains('Connection refused')
+          ? 'Connection refused — is the AI Router app running?'
+          : e.toString().contains('timed out')
+              ? 'Request timed out — router may be busy or stopped'
+              : 'Error: $e';
       setState(() {
         _messages.add(_AiMessage(
-          text: 'Could not reach Deodar AI Router. Is it running on port 8888?',
+          text: detail,
           isUser: false,
         ));
       });
