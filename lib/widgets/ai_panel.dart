@@ -58,8 +58,14 @@ class _AiPanelState extends State<AiPanel> {
           _messages.add(_AiMessage(text: reply.isNotEmpty ? reply : 'No response', isUser: false));
         });
       } else {
+        // Show the actual error from the router (e.g. "No providers configured")
+        String errMsg = 'Error ${response.statusCode}';
+        try {
+          final data = jsonDecode(response.body) as Map<String, dynamic>;
+          errMsg = data['error']?.toString() ?? errMsg;
+        } catch (_) {}
         setState(() {
-          _messages.add(_AiMessage(text: 'Error ${response.statusCode}', isUser: false));
+          _messages.add(_AiMessage(text: errMsg, isUser: false));
         });
       }
     } catch (e) {
